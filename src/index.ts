@@ -1,4 +1,4 @@
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 
 // Our plugin
 
