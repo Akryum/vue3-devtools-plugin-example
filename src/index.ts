@@ -1,11 +1,11 @@
-import { setInterval } from 'timers'
-import { reactive } from 'vue'
+import { reactive, App } from 'vue'
+import SomeComponent from './SomeComponent.vue'
 import { setupDevtools } from './devtools'
 
 // Our plugin
 
 export default {
-  install (app, options = {}) {
+  install (app: App, options = {}) {
     const data = reactive({
       message: 'hello',
       counter: 0
@@ -33,6 +33,8 @@ export default {
         }
       }
     })
+
+    app.component('SomeComponent', SomeComponent)
 
     setInterval(() => {
       data.counter += 5

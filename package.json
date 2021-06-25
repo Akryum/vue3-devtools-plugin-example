@@ -1,19 +1,25 @@
 {
   "name": "my-awesome-plugin",
   "version": "0.0.0",
-  "main": "dist/index.js",
+  "main": "dist/my-plugin.browser.min.js",
+  "module": "dist/my-plugin.esm-bundler.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --watch -d"
+    "dev": "tsc --watch -d",
+    "build": "tsc -d --emitDeclarationOnly && node ./esbuild.js"
+  },
+  "dependencies": {
+    "@vue/devtools-api": "^6.0.0-beta.14"
   },
   "peerDependencies": {
     "vue": "^3.0.5"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
+    "@vue/compiler-sfc": "^3.1.2",
+    "esbuild": "^0.12.9",
+    "esbuild-plugin-vue": "^0.1.2",
     "typescript": "^4.1.3",
     "vue": "^3.0.5"
-  },
-  "dependencies": {
-    "@vue/devtools-api": "^6.0.0-beta.14"
   }
 }
