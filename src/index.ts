@@ -1,12 +1,13 @@
 import { reactive, App } from 'vue'
 import SomeComponent from './SomeComponent.vue'
 import { setupDevtools } from './devtools'
+import { MyPluginData } from './data'
 
 // Our plugin
 
 export default {
   install (app: App, options = {}) {
-    const data = reactive({
+    const data = reactive<MyPluginData>({
       message: 'hello',
       counter: 0
     })
