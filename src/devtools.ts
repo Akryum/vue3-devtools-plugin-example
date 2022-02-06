@@ -5,9 +5,9 @@ import { MyPluginData } from './data'
 export function setupDevtools (app: App, data: MyPluginData) {
   const stateType = 'My Awesome Plugin state'
   const inspectorId = 'my-awesome-plugin'
-  const timelineLayerId = 'my-awsome-plugin'
+  const timelineLayerId = 'my-awesome-plugin'
 
-  let devtoolsApi: DevtoolsPluginApi
+  let devtoolsApi: DevtoolsPluginApi<{}>
 
   let trackId = 0
 
@@ -94,7 +94,7 @@ export function setupDevtools (app: App, data: MyPluginData) {
     })
 
     api.on.getInspectorTree((payload, context) => {
-      if (payload.app === app && payload.inspectorId === inspectorId) {
+      if (payload.inspectorId === inspectorId) {
         payload.rootNodes = [
           {
             id: 'root',
@@ -126,7 +126,7 @@ export function setupDevtools (app: App, data: MyPluginData) {
     })
 
     api.on.getInspectorState((payload, context) => {
-      if (payload.app === app && payload.inspectorId === inspectorId) {
+      if (payload.inspectorId === inspectorId) {
         if (payload.nodeId === 'child-1') {
           payload.state = {
             'my section': [
@@ -169,6 +169,45 @@ export function setupDevtools (app: App, data: MyPluginData) {
     //     }
     //   })
     // })
+    window.addEventListener('click', event => {
+      const groupId = 'group-1'
+
+      devtoolsApi.addTimelineEvent({
+        layerId: timelineLayerId,
+        event: {
+          time: Date.now(),
+          data: {
+            label: 'group test'
+          },
+          title: 'group test',
+          groupId
+        }
+      })
+
+      devtoolsApi.addTimelineEvent({
+        layerId: timelineLayerId,
+        event: {
+          time: Date.now() + 10,
+          data: {
+            label: 'group test (event 2)',
+          },
+          title: 'group test',
+          groupId
+        }
+      })
+
+      devtoolsApi.addTimelineEvent({
+        layerId: timelineLayerId,
+        event: {
+          time: Date.now() + 20,
+          data: {
+            label: 'group test (event 3)',
+          },
+          title: 'group test',
+          groupId
+        }
+      })
+    })
   })
 
   return devtools
